@@ -11,13 +11,16 @@
       <br>
       <div v-for="(post, index) in filteredList" :key="index">
         <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;">
-          <div>name: {{post.title}}</div>
-          <div>author: {{post.author}}</div>
+          <div>name: {{post.title.name}}</div>
+          <div>author: {{post.author.name}}</div>
         </div>
         <br>
         <!-- <div>{{filteredList}}</div> -->
       </div>
     </b-container>
+    <div>
+      {{postLists}}
+    </div>
   </div>
 </template>
 <script>
@@ -33,23 +36,33 @@ export default {
   data () {
     return {
       search: '',
+      postLists: [{
+        item: { item: 'nokky', qr: '' },
+        location: { location: '32131231231', qr: '' }
+      }, {
+        item: { item: 'loki', qr: '' },
+        location: { location: '3123123123', qr: '' }
+      }, {
+        item: { item: 'momo', qr: '' },
+        location: { location: '312312312', qr: '' }
+      }],
       postList: [
         new Post(
-          'anusorn',
+          { name: 'anusorn', qr: 'rqwrqwrqwrw' },
           'thavornpon',
-          'nokky',
+          { name: 'nokky', qr: 'rqwrqwrqwrw' },
           'fsaasfasfasfafas'
         ),
         new Post(
-          'anussfsfsfsforn',
+          { name: 'anusorn', qr: 'rqwrqwrqwrw' },
           'thavornpon',
-          'loki',
+          { name: 'loki', qr: 'rqwrqwrqwrw' },
           'fsaasfasfasfafas'
         ),
         new Post(
-          'anufsfsfsorn',
+          { name: 'anusorn', qr: 'rqwrqwrqwrw' },
           'thavornfsfsfpon',
-          'momo',
+          { name: 'momo', qr: 'rqwrqwrqwrw' },
           'fsaas11111fasfasfafas'
         )
       ]
@@ -58,7 +71,7 @@ export default {
   computed: {
     filteredList () {
       return this.postList.filter(post => {
-        return post.author.toLowerCase().includes(this.search.toLowerCase())
+        return post.author.name.toLowerCase().includes(this.search.toLowerCase())
       })
     }
   }
