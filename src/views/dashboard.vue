@@ -1,0 +1,68 @@
+<template>
+  <div>
+    <br>
+    <h1>Search</h1>
+    <b-container>
+      <b-row>
+        <b-col>
+          <b-input type="text" placeholder="Search title" v-model="search"></b-input>
+        </b-col>
+      </b-row>
+      <br>
+      <div v-for="(post, index) in filteredList" :key="index">
+        <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;">
+          <div>name: {{post.title}}</div>
+          <div>author: {{post.author}}</div>
+        </div>
+        <br>
+        <!-- <div>{{filteredList}}</div> -->
+      </div>
+    </b-container>
+  </div>
+</template>
+<script>
+class Post {
+  constructor (title, link, author, img) {
+    this.title = title
+    this.link = link
+    this.author = author
+    this.img = img
+  }
+}
+export default {
+  data () {
+    return {
+      search: '',
+      postList: [
+        new Post(
+          'anusorn',
+          'thavornpon',
+          'nokky',
+          'fsaasfasfasfafas'
+        ),
+        new Post(
+          'anussfsfsfsforn',
+          'thavornpon',
+          'loki',
+          'fsaasfasfasfafas'
+        ),
+        new Post(
+          'anufsfsfsorn',
+          'thavornfsfsfpon',
+          'momo',
+          'fsaas11111fasfasfafas'
+        )
+      ]
+    }
+  },
+  computed: {
+    filteredList () {
+      return this.postList.filter(post => {
+        return post.author.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
+  }
+}
+</script>
+<style>
+</style>
