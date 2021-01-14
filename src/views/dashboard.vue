@@ -9,21 +9,25 @@
         </b-col>
       </b-row>
       <br>
-      <div style="border-radius: 5px;border: thin solid #888;margin:5px;" v-for="(post, index) in filteredList" :key="index">
+      <div style="border-radius: 5px;border: thin solid #888;margin:5px;width:500px;float: left;" v-for="(post, index) in filteredList" :key="index">
         <b-row>
           <b-col>
-            <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;">
-              <div>name: {{post.title.name}}</div>
-              <div>author: {{post.author.name}}</div>
+            <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;background-color: #00ccff;color: whitesmoke;">
+              <div>
+                Author: {{post.title.name}}
+              </div>
+              <div>
+                QR: {{post.title.qr}}
+              </div>
             </div>
           </b-col>
           <b-col>
-          <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;">
+          <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;background-color: #00ccff;color: whitesmoke;">
             <div>
-              name: {{post.title.qr}}
+              Location: {{post.author.name}}
             </div>
             <div>
-              author: {{post.author.qr}}
+              QR: {{post.author.qr}}
             </div>
           </div>
           </b-col>
