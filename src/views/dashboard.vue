@@ -2,6 +2,7 @@
   <div>
     <br>
     <div>
+      <b-input type="text" v-model="search" v-on:keyup.enter="tests()"></b-input>
     </div>
     <b-container>
       <b-container fluid>
@@ -68,7 +69,7 @@
         </b-row>
       </b-container>
       <br>
-      <b-table :items="postList" :fields="fields" :current-page="currentPage" :per-page="perPage" :filter="filter" :filter-included-fields="filterOn" @filtered="onFiltered">
+      <b-table :items="postss" :fields="fields" :current-page="currentPage" :per-page="perPage" :filter="filter" :filter-included-fields="filterOn" @filtered="tests">
         <template v-slot:cell(name)="data">
           <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;background-color: #00ccff;color: whitesmoke;">
             <div>
@@ -90,7 +91,7 @@
           </div>
         </template>
       </b-table>
-      <!-- <div style="border-radius: 5px;border: thin solid #888;margin:5px;width:500px;float: left;" v-for="(post, index) in filteredList" :key="index" :current-page="currentPage" >
+      <!-- <div style="border-radius: 5px;border: thin solid #888;margin:5px;width:500px;float: left;" v-for="(post, index) in filteredList" :key="index">
         <b-row>
           <b-col>
             <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;background-color: #00ccff;color: whitesmoke;">
@@ -118,12 +119,14 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   data () {
     return {
       search: '',
+      test: [],
       postList: [],
+      postss: [],
       fields: [{ key: 'name', label: '', thStyle: { display: 'none' } }, { key: 'lo', label: '', thStyle: { display: 'none' } }],
       totalRows: 1,
       currentPage: 1,
@@ -137,21 +140,79 @@ export default {
   beforeCreate () {
   },
   created () {
+    var local = JSON.parse(localStorage.getItem('qr'))
+    if (local === null) {
+      console.log('test')
+      // this.getQR()
+      this.postList = JSON.parse(localStorage.getItem('qr'))
+      this.totalRows = this.postList.length
+    } else if (local !== null) {
+      this.postList = JSON.parse(localStorage.getItem('qr'))
+      this.totalRows = this.postList.length
+    }
   },
   mounted () {
-    this.getQR()
+    // var local = JSON.parse(localStorage.getItem('qr'))
+    // if (local !== null) {
+    //   this.postList = JSON.parse(localStorage.getItem('qr'))
+    //   this.totalRows = this.postList.length
+    // }
+    // var local = JSON.parse(localStorage.getItem('qr'))
+    // if (local === null) {
+    //   console.log('test')
+    //   this.getQR()
+    //   this.postList = JSON.parse(localStorage.getItem('qr'))
+    //   this.totalRows = this.postList.length
+    // } else if (local !== null) {
+    //   this.postList = JSON.parse(localStorage.getItem('qr'))
+    //   this.totalRows = this.postList.length
+    // }
   },
   methods: {
-    getQR () {
-      axios.get('http://192.168.1.41:9080/fetch_item_list').then(response => {
-        this.postList = response.data.item_list
-        this.totalRows = this.postList.length
-      })
-    },
+    // getQR () {
+    //   axios.get('http://192.168.1.41:9080/fetch_item_list').then(response => {
+    //     // this.postList = response.data.item_list
+    //     localStorage.setItem('qr', JSON.stringify(response.data.item_list))
+    //     this.postList = JSON.parse(localStorage.getItem('qr'))
+    //     // console.log('User', user)
+    //     // CacheStorage.setItem('qr', JSON.stringify(response.data.item_list))
+    //     // this.totalRows = this.postList.length
+    //   })
+    // },
     onFiltered (filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length
       this.currentPage = 1
+    },
+    tests () {
+      console.log('test2222')
+      // const data = {
+      //   list: [
+      //     {
+      //       name: 'myname', id: 12, type: 'car owner'
+      //     },
+      //     {
+      //       name: 'myname2', id: 13, type: 'car owner2'
+      //     },
+      //     {
+      //       name: 'myname3', id: 14, type: 'car owner3'
+      //     },
+      //     {
+      //       name: 'myname4', id: 15, type: 'car owner4'
+      //     }
+      //   ]
+      // }
+      // var ss = []
+      this.postList = JSON.parse(localStorage.getItem('qr'))
+      // this.totalRows = this.postList.length
+      // console.log(this.postList)
+      this.postss = this.postList.filter(record => {
+        this.totalRows = this.postList.length
+        return record.name.toLowerCase().includes(this.search.toLowerCase())
+      })
+      this.totalRows = this.postss.length
+      this.currentPage = 1
+      console.log('data: ', this.postss)
     }
   },
   computed: {
