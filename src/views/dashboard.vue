@@ -39,7 +39,7 @@
         <template v-slot:cell(name)="data">
           <b-row>
             <b-col>
-              <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;background-color: #29265b;color: whitesmoke;margin-left: auto;margin-right: auto;display: block;">
+              <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;background-color: #29265b;color: whitesmoke;box-shadow: 0px 15px 40px -15px rgba(0,0,0,12);margin-left: auto;margin-right: auto;display: block;">
                 <div>
                   {{data.item.name}}
                 </div>
@@ -53,7 +53,7 @@
         <template v-slot:cell(lo)="data">
           <b-row>
             <b-col>
-              <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;background-color: #29265b;color: whitesmoke;margin-left: auto;margin-right: auto;display: block;">
+              <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;background-color: #29265b;color: whitesmoke;box-shadow: 0px 15px 40px -15px rgba(0,0,0,12);margin-left: auto;margin-right: auto;display: block;">
                 <div>
                   {{data.item.lo}}
                 </div>
@@ -93,7 +93,7 @@ export default {
     axios.get('http://192.168.10.2:9080/fetch_item_list').then(response => {
       localStorage.setItem('qr', JSON.stringify(response.data.item_list))
     })
-    this.postss = JSON.parse(localStorage.getItem('qr'))
+    this.postss = JSON.parse(localStorage.getItem('qr')).slice(0, 2000)
     console.log('data: ', this.postss)
     this.totalRows = this.postss.length
   },
