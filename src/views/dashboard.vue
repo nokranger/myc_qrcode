@@ -1,37 +1,15 @@
 <template>
   <div>
     <br>
-    <div>
-      <b-input type="text" v-model="search" v-on:keyup.enter="tests()"></b-input>
-    </div>
     <b-container>
       <b-container fluid>
         <b-row>
           <b-col>
             <div>
-              <b-form-group
-                label="Filter"
-                label-for="filter-input"
-                label-cols-sm="3"
-                label-align-sm="right"
-                label-size="sm"
-                class="mb-0"
-              >
-                <b-input-group size="sm">
-                  <b-form-input
-                    id="filter-input"
-                    v-model="filter"
-                    type="search"
-                    placeholder="Type to Search"
-                  ></b-form-input>
-                  <b-input-group-append>
-                    <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
-                  </b-input-group-append>
-                </b-input-group>
-              </b-form-group>
+              <b-input type="text" v-model="search" v-on:keyup.enter="getQR()" placeholder="Type to Search"></b-input>
             </div>
           </b-col>
-          <b-col>
+          <!-- <b-col>
             <div>
               <b-form-checkbox-group
                 v-model="filterOn"
@@ -42,7 +20,7 @@
               </b-form-checkbox-group>
             </div>
           </b-col>
-          <b-col></b-col>
+          <b-col></b-col> -->
         </b-row>
         <br>
         <b-row>
@@ -69,26 +47,34 @@
         </b-row>
       </b-container>
       <br>
-      <b-table :items="postss" :fields="fields" :current-page="currentPage" :per-page="perPage" :filter="filter" :filter-included-fields="filterOn" @filtered="tests">
+      <b-table class="text-center" :items="postss" :fields="fields" :current-page="currentPage" :per-page="perPage" :filter="filter" :filter-included-fields="filterOn" @filtered="getQR" borderless fixed>
         <template v-slot:cell(name)="data">
-          <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;background-color: #00ccff;color: whitesmoke;">
-            <div>
-              {{data.item.name}}
-            </div>
-            <div>
-              <img style="width:70px;height:70px;" :src="data.item.name_qr_url">
-            </div>
-          </div>
+          <b-row>
+            <b-col>
+              <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;background-color: #00ccff;color: whitesmoke;margin-left: auto;margin-right: auto;display: block;">
+                <div>
+                  {{data.item.name}}
+                </div>
+                <div>
+                  <img style="width:70px;height:70px;" :src="data.item.name_qr_url">
+                </div>
+              </div>
+            </b-col>
+          </b-row>
         </template>
         <template v-slot:cell(lo)="data">
-          <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;background-color: #00ccff;color: whitesmoke;">
-            <div>
-              {{data.item.lo}}
-            </div>
-            <div>
-              <img style="width:70px;height:70px;" :src="data.item.lo_qr_url">
-            </div>
-          </div>
+          <b-row>
+            <b-col>
+              <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;background-color: #00ccff;color: whitesmoke;margin-left: auto;margin-right: auto;display: block;">
+                <div>
+                  {{data.item.lo}}
+                </div>
+                <div>
+                  <img style="width:70px;height:70px;" :src="data.item.lo_qr_url">
+                </div>
+              </div>
+            </b-col>
+          </b-row>
         </template>
       </b-table>
       <!-- <div style="border-radius: 5px;border: thin solid #888;margin:5px;width:500px;float: left;" v-for="(post, index) in filteredList" :key="index">
@@ -140,16 +126,19 @@ export default {
   beforeCreate () {
   },
   created () {
-    var local = JSON.parse(localStorage.getItem('qr'))
-    if (local === null) {
-      console.log('test')
-      // this.getQR()
-      this.postList = JSON.parse(localStorage.getItem('qr'))
-      this.totalRows = this.postList.length
-    } else if (local !== null) {
-      this.postList = JSON.parse(localStorage.getItem('qr'))
-      this.totalRows = this.postList.length
-    }
+    this.postss = JSON.parse(localStorage.getItem('qr'))
+    console.log('data: ', this.postss)
+    this.totalRows = this.postss.length
+    // var local = JSON.parse(localStorage.getItem('qr'))
+    // if (local === null) {
+    //   console.log('test')
+    //   // this.getQR()
+    //   this.postList = JSON.parse(localStorage.getItem('qr'))
+    //   this.totalRows = this.postList.length
+    // } else if (local !== null) {
+    //   this.postList = JSON.parse(localStorage.getItem('qr'))
+    //   this.totalRows = this.postList.length
+    // }
   },
   mounted () {
     // var local = JSON.parse(localStorage.getItem('qr'))
@@ -184,8 +173,7 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-    tests () {
-      console.log('test2222')
+    getQR () {
       // const data = {
       //   list: [
       //     {
