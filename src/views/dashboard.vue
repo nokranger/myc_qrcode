@@ -39,12 +39,12 @@
         <template v-slot:cell(name)="data">
           <b-row>
             <b-col>
-              <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;background-color: #29265b;color: whitesmoke;box-shadow: 0px 15px 40px -15px rgba(0,0,0,12);margin-left: auto;margin-right: auto;display: block;">
+              <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 130px;margin:5px;background-color: #29265b;color: whitesmoke;box-shadow: 0px 15px 40px -15px rgba(0,0,0,12);margin-left: auto;margin-right: auto;display: block;">
                 <div>
                   {{data.item.name}}
                 </div>
                 <div>
-                  <img style="width:70px;height:70px;" :src="data.item.name_qr_url">
+                  <img style="width:90px;height:90px;" :src="data.item.name_qr_url">
                 </div>
               </div>
             </b-col>
@@ -53,12 +53,12 @@
         <template v-slot:cell(lo)="data">
           <b-row>
             <b-col>
-              <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 100px;margin:5px;background-color: #29265b;color: whitesmoke;box-shadow: 0px 15px 40px -15px rgba(0,0,0,12);margin-left: auto;margin-right: auto;display: block;">
+              <div style="border-radius: 5px;border: thin solid #888;width: 200px;height: 130px;margin:5px;background-color: #29265b;color: whitesmoke;box-shadow: 0px 15px 40px -15px rgba(0,0,0,12);margin-left: auto;margin-right: auto;display: block;">
                 <div>
                   {{data.item.lo}}
                 </div>
                 <div>
-                  <img style="width:70px;height:70px;" :src="data.item.lo_qr_url">
+                  <img style="width:90px;height:90px;" :src="data.item.lo_qr_url">
                 </div>
               </div>
             </b-col>
